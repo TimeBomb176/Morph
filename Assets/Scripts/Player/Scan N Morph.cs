@@ -14,6 +14,21 @@ public class ScanNMorph : MonoBehaviour
         public ObjectScannable selectedObjectScannable;
     }
 
+
+
+    public event EventHandler<OnSelectedObjectVisualChangedEventArgs> OnSelectedObjectVisualChanged;
+    public class OnSelectedObjectVisualChangedEventArgs : EventArgs
+    {
+        public GameObject gameObject;
+        public ObjectScannable objectScannable;
+        public ObjectMorphable objectMorphable;
+    }
+
+
+
+
+
+    // Updates the Scanned Object UI Visual
     public event EventHandler<OnSelectedScannableSpriteChangedEventArgs> OnSelectedScannableSpriteChanged;
     public class OnSelectedScannableSpriteChangedEventArgs : EventArgs
     {
@@ -43,6 +58,7 @@ public class ScanNMorph : MonoBehaviour
     private void Update()
     {
         SelectedScannableObject();
+        SelectableObject();
     }
 
     public void SetScannedObject()
@@ -77,6 +93,18 @@ public class ScanNMorph : MonoBehaviour
         }
     }
 
+    private void SelectableObject()
+    {
+        ObjectScannable objectScannable = getObjectData.GetScannableObject();
+        ObjectMorphable objectMorphable = getObjectData.GetMorphableObject();
+        GameObject selectableObject = getObjectData.GetGameObject();
+
+        if (objectScannable != null || objectMorphable != null)
+        {
+            SetSelectedVisual(selectableObject, objectScannable, objectMorphable);
+        } else SetSelectedVisual(null, null, null);
+    }
+
     public void MorphIntoScannedObject()
     {
         ObjectMorphable morphableObject = getObjectData.GetMorphableObject();
@@ -106,5 +134,16 @@ public class ScanNMorph : MonoBehaviour
         {
             selectedObjectScannable = this.selectedObjectScannable
         });
+    }
+
+    private void SetSelectedVisual(GameObject gO, ObjectScannable oS, ObjectMorphable oM)
+    {
+        OnSelectedObjectVisualChanged?.Invoke(this, new OnSelectedObjectVisualChangedEventArgs
+        {
+            gameObject = gO,
+            objectScannable = oS,
+            objectMorphable = oM
+        });
+
     }
 }
