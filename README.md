@@ -4,8 +4,12 @@
  Controls: Action - Keyboard / Controller
   
   Movement - WASD / Left Stick
+  
   Jump - Space / South Face Button
+  
   Interact - "E" / West Face Button
+  
   Copy - Right Mouse Button / Left Trigger
+  
   Paste/Morph - Left Mouse Button / Right Trigger
   
