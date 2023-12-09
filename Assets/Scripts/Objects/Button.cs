@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Button : MonoBehaviour, IInteractable
 {
+    [Tooltip("If true will only activate closest object, else will activate all objects with IButtonActivatable")]
+    [SerializeField] private bool activateClosestObject = true;
+
     private Animator animator;
 
     private void Awake()
@@ -27,14 +30,49 @@ public class Button : MonoBehaviour, IInteractable
 
         float sphereCastRadius = 5f;
         Collider[] colliderArray = Physics.OverlapSphere(this.transform.position, sphereCastRadius);
-        
+
+        List<IButtonActivatable> buttonActivatableList = new List<IButtonActivatable>();
+
         foreach (Collider collider in colliderArray)
         {
             if (collider.TryGetComponent(out IButtonActivatable buttonActivatable))
             {
-                buttonActivatable.ActivateWithButton();
-            } else Debug.Log("None Found");
+                buttonActivatableList.Add(buttonActivatable);
+            } 
         }
-       
+
+        if (activateClosestObject)
+        {
+            ClosestButtonActivatableObject(buttonActivatableList).ActivateWithButton();
+        } else
+        {
+            foreach (IButtonActivatable buttonActivatable in buttonActivatableList)
+            {
+                buttonActivatable.ActivateWithButton();
+            }
+        }
+
+    }
+
+    private IButtonActivatable ClosestButtonActivatableObject(List<IButtonActivatable> buttonActivatableList)
+    {
+        IButtonActivatable closestButtonActivatable = null;
+        
+        foreach (IButtonActivatable buttonactivatable in buttonActivatableList)
+        {
+            if (closestButtonActivatable == null)
+            {
+                closestButtonActivatable = buttonactivatable;
+            } else
+            {
+                if (Vector3.Distance(transform.position, buttonactivatable.GetTransform().position) <
+                    Vector3.Distance(transform.position, closestButtonActivatable.GetTransform().position)){
+
+                    closestButtonActivatable = buttonactivatable;
+                }
+            }
+        }
+
+        return closestButtonActivatable;
     }
 }

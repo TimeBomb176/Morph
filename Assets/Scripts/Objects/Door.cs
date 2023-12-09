@@ -15,7 +15,11 @@ public class Door : MonoBehaviour, IButtonActivatable
 
     public void ActivateWithButton()
     {
-        //Debug.Log("Security Door Opened");
         animator.SetBool("IsOpened", true);
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
     }
 }
