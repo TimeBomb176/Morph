@@ -126,7 +126,6 @@ GameObject:
   - component: {fileID: 3803532168675208135}
   - component: {fileID: 2425895892968194738}
   - component: {fileID: 4659785986335580011}
-  - component: {fileID: 658812741622408822}
   m_Layer: 0
   m_Name: P_Blue Sphere
   m_TagString: Untagged
@@ -186,19 +185,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 21300000, guid: 5fc0d43345b377f41807390671a87e5a, type: 3}
   isScannable: 1
---- !u!114 &658812741622408822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8418636649599628927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab3e13ae0fed60f489c92a0ec0912694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMorphable: 1
 --- !u!1001 &7112435086330700481
 PrefabInstance:
   m_ObjectHideFlags: 0

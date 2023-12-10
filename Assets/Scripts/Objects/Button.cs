@@ -43,7 +43,10 @@ public class Button : MonoBehaviour, IInteractable
 
         if (activateClosestObject)
         {
-            ClosestButtonActivatableObject(buttonActivatableList).ActivateWithButton();
+            if (ClosestButtonActivatableObject(buttonActivatableList) != null)
+            {
+                ClosestButtonActivatableObject(buttonActivatableList).ActivateWithButton();
+            }
         } else
         {
             foreach (IButtonActivatable buttonActivatable in buttonActivatableList)
@@ -51,7 +54,6 @@ public class Button : MonoBehaviour, IInteractable
                 buttonActivatable.ActivateWithButton();
             }
         }
-
     }
 
     private IButtonActivatable ClosestButtonActivatableObject(List<IButtonActivatable> buttonActivatableList)
