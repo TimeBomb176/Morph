@@ -6,13 +6,21 @@ public class ObjectScannable : MonoBehaviour, IScannable
 {
     [SerializeField] private Sprite objectSprite = null;
 
+    [Tooltip("Which Object to return when scanning and morphing. If left empty will just return the object the script is attached to")]
+    [SerializeField] private GameObject returnGameObject;
+
     [SerializeField] private bool isScannable = true;
+
+    private void Awake()
+    {
+        if (returnGameObject == null) returnGameObject = this.gameObject;
+    }
 
     public GameObject ScanObjectShape()
     {
         if (isScannable)
         {
-            return this.gameObject;
+            return returnGameObject;
         }
 
         return null;
@@ -20,6 +28,11 @@ public class ObjectScannable : MonoBehaviour, IScannable
 
     public Sprite ObjectSprite()
     {
-        return objectSprite;
+        if (isScannable)
+        {
+            return objectSprite;
+        }
+
+        return null;
     }
 }

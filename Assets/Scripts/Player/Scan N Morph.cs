@@ -7,15 +7,7 @@ public class ScanNMorph : MonoBehaviour
 {
     public static ScanNMorph Instance { get; private set; }
 
-
-    public event EventHandler<OnSelectedScannableObjectChangedEventArgs> OnSelectedScannableObjectChanged;
-    public class OnSelectedScannableObjectChangedEventArgs : EventArgs
-    {
-        public ObjectScannable selectedObjectScannable;
-    }
-
-
-
+    // Updates the selectable Object UI
     public event EventHandler<OnSelectedObjectVisualChangedEventArgs> OnSelectedObjectVisualChanged;
     public class OnSelectedObjectVisualChangedEventArgs : EventArgs
     {
@@ -41,7 +33,8 @@ public class ScanNMorph : MonoBehaviour
 
     [SerializeField] private UpdateScannedObjectUI updateScannedOpjectUI;
     private GetObjectData getObjectData;
-    private ObjectScannable selectedObjectScannable;
+
+    private ObjectScannable scannableObject;
     
 
     private void Awake()
@@ -57,13 +50,16 @@ public class ScanNMorph : MonoBehaviour
 
     private void Update()
     {
-        SelectedScannableObject();
-        SelectableObject();
+        SetSelectableObjectVisual();
     }
+
+       /* ---------------------------------
+       ---------- Scan and Morph ----------
+        ---------------------------------*/
 
     public void SetScannedObject()
     {
-        ObjectScannable scannableObject = getObjectData.GetScannableObject();
+        scannableObject = getObjectData.GetScannableObject();
 
         if (scannableObject != null)
         {
@@ -79,21 +75,35 @@ public class ScanNMorph : MonoBehaviour
         }
     }
 
-    private void SelectedScannableObject()
+    public void MorphObjectIntoScannedObject()
     {
-        ObjectScannable scannableObject = getObjectData.GetScannableObject();
+        ObjectMorphable morphableObject = getObjectData.GetMorphableObject();
 
-        if (scannableObject != null)
+        if (morphableObject != null)
         {
-            SetSelectedScannableObject(getObjectData.GetScannableObject());
-        } 
-        else
-        {
-            SetSelectedScannableObject(null);
+            if (morphableObject.GetTransform() != null)
+            {
+                if (scannableObject != null)
+                {
+                    GameObject go = Instantiate(scannedObject, morphableObject.GetTransform().position,
+                    morphableObject.GetTransform().rotation, morphableObjectsParent.transform);
+
+                    go.name = scannedObject.name.Replace("(clone)", "").Trim();
+                    scannedObject = go;
+
+                    Destroy(morphableObject.gameObject);
+                }
+            }
         }
     }
 
-    private void SelectableObject()
+
+    /* ------------------------------------------
+      ---------- Scan, Morphable Visuals ----------
+       -----------------------------------------*/
+
+
+    private void SetSelectableObjectVisual()
     {
         ObjectScannable objectScannable = getObjectData.GetScannableObject();
         ObjectMorphable objectMorphable = getObjectData.GetMorphableObject();
@@ -101,42 +111,13 @@ public class ScanNMorph : MonoBehaviour
 
         if (objectScannable != null || objectMorphable != null)
         {
-            SetSelectedVisual(selectableObject, objectScannable, objectMorphable);
-        } else SetSelectedVisual(null, null, null);
+            SendSelectableObjectInfo(selectableObject, objectScannable, objectMorphable);
+        } else SendSelectableObjectInfo(null, null, null);
     }
 
-    public void MorphIntoScannedObject()
-    {
-        ObjectMorphable morphableObject = getObjectData.GetMorphableObject();
-
-        if (morphableObject != null)
-        {
-            if (getObjectData.GetMorphableObject().GetTransform() != null)
-            {
-                GameObject go = Instantiate(scannedObject, morphableObject.GetTransform().position,
-                    morphableObject.GetTransform().rotation, morphableObjectsParent.transform);
-
-                go.name = scannedObject.name.Replace("(clone)", "").Trim();
-                scannedObject = go;
-
-                SelectedScannableObject();
-
-                Destroy(morphableObject.gameObject);
-            }
-        }
-    }
-
-    private void SetSelectedScannableObject(ObjectScannable objectScannable)
-    {
-        selectedObjectScannable = objectScannable;
-
-        OnSelectedScannableObjectChanged?.Invoke(this, new OnSelectedScannableObjectChangedEventArgs
-        {
-            selectedObjectScannable = this.selectedObjectScannable
-        });
-    }
-
-    private void SetSelectedVisual(GameObject gO, ObjectScannable oS, ObjectMorphable oM)
+    // Publishes event to set correct visual outline on Scannable/Morphable.
+    // All Scannable and Morphable object are subscribed. May need to Refactor if there are performance issues
+    private void SendSelectableObjectInfo(GameObject gO, ObjectScannable oS, ObjectMorphable oM)
     {
         OnSelectedObjectVisualChanged?.Invoke(this, new OnSelectedObjectVisualChangedEventArgs
         {

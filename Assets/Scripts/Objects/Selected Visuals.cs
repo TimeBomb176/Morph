@@ -8,7 +8,7 @@ public class SelectedVisuals : MonoBehaviour
     [Tooltip("The object responsible for being detectable by the player. Should contain either Object Scannable/Morphable Script or both")]
     [SerializeField] private GameObject parentGameObject;
 
-    [Tooltip("Spawns selectable object outlines by using the visual added")]
+    [Tooltip("Spawns selectable object outlines by using the visual added. Needs to be an empty object with the visuals being the children")]
     [SerializeField] private GameObject visualGameObject;
 
     private const int materialArraySize = 3;
@@ -23,7 +23,7 @@ public class SelectedVisuals : MonoBehaviour
     [SerializeField, HideInInspector] private GameObject scanMorphVisual;
 
     private GameObject[] gameObjectVisualsArray = new GameObject[3];
-    private string[] visualNames = { "ScannableObjectOutline", "MorphableObjectOutline", "ScanNMorphOutline" };
+    private string[] visualNamesArray = { "ScannableObjectOutline", "MorphableObjectOutline", "ScanNMorphOutline" };
 
     private void OnValidate()
     {
@@ -68,16 +68,19 @@ public class SelectedVisuals : MonoBehaviour
 
         if (visualGameObject != null)
         {
-            for (int i = 0; i < visualNames.Length; i++)
+            for (int i = 0; i < visualNamesArray.Length; i++)
             {
                 instantiatedObject = Instantiate(visualGameObject, this.gameObject.transform);
-                instantiatedObject.name = visualNames[i];
+                instantiatedObject.name = visualNamesArray[i];
 
                 gameObjectVisualsArray[i] = instantiatedObject;
                 
                 instantiatedObject.SetActive(false);
 
-                instantiatedObject.transform.GetChild(0).GetComponent<Renderer>().material = selectedMaterials[i];
+                for (int j = 0; j < visualGameObject.transform.childCount; j++)
+                {
+                    instantiatedObject.transform.GetChild(j).GetComponent<Renderer>().material = selectedMaterials[i];
+                }
             }
         }
 

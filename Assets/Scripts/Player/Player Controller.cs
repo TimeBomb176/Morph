@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 {
 
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float crouchMoveSpeed;
     [SerializeField] private float jumpStrength;
 
     private float yVelocity;
@@ -18,7 +19,6 @@ public class PlayerController : MonoBehaviour
     private bool isMoving = false;
     private bool isCrouching = false;
 
-    private bool isSprinting = false;
 
     [SerializeField] private Transform cam;
     [SerializeField] private Transform cameraTransformObject;
@@ -35,15 +35,12 @@ public class PlayerController : MonoBehaviour
     private float defaultControllerHeight;
     private float defaultCamPosition;
     private float defaultMoveSpeed;
+    private float defaultCrouchMoveSpeed;
 
+    [Header("Character Controller collider Crouch size")]
     [SerializeField] private Vector3 crouchControllerCenter;
     [SerializeField] private float crouchControllerHeight;
     [SerializeField] private float crouchCamPosition;
-
-    [SerializeField] private float sprintSpeed;
-    [SerializeField] private float maxStamina;
-    [SerializeField] private float sprintStaminaThreshold;
-    private float stamina;
 
     private void Awake()
     {
@@ -58,7 +55,7 @@ public class PlayerController : MonoBehaviour
         defaultControllerCenter = characterController.center;
         defaultControllerHeight = characterController.height;
         defaultMoveSpeed = moveSpeed;
-        stamina = maxStamina;
+        defaultCrouchMoveSpeed = crouchMoveSpeed;
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
@@ -81,16 +78,13 @@ public class PlayerController : MonoBehaviour
         {
             yVelocity = -.5f;
         }
-
-        UpdateSprintThreshold();
-
     }
 
     //Player Interactions
 
     private void MorphObject(InputAction.CallbackContext context)
     {
-        scanNMorph.MorphIntoScannedObject();
+        scanNMorph.MorphObjectIntoScannedObject();
 
     }
 
@@ -139,22 +133,6 @@ public class PlayerController : MonoBehaviour
         characterController.Move(moveSpeed * Time.deltaTime * move);
     }
 
-    private void UpdateSprintThreshold()
-    {
-        if (isSprinting == true)
-        {
-            stamina -= Time.deltaTime;
-            if (stamina <= 0f)
-            {
-                moveSpeed = defaultMoveSpeed;
-                isSprinting = false;
-            }
-        }
-
-        if (stamina <= maxStamina) stamina += Time.deltaTime;
-
-    }
-
     private void Jump(InputAction.CallbackContext context)
     {
         if (characterController.isGrounded)
@@ -168,20 +146,29 @@ public class PlayerController : MonoBehaviour
     {
         if (isCrouching == false)
         {
-            characterController.center = crouchControllerCenter;
-            characterController.height = crouchControllerHeight;
-            cameraTransformObject.position = new Vector3(cameraTransformObject.position.x, crouchCamPosition, cameraTransformObject.position.z);
-            moveSpeed /= 2;
-            isCrouching = true;
+            CrouchMovement();
         } else if (isCrouching == true)
         {
-            characterController.center = defaultControllerCenter;
-            characterController.height = defaultControllerHeight;
-            cameraTransformObject.position = new Vector3(cameraTransformObject.position.x, defaultCamPosition, cameraTransformObject.position.z);
-            moveSpeed = defaultMoveSpeed;
-            isCrouching = false;
+            RegularMovement();
         }
+    }
 
+    private void CrouchMovement()
+    {
+        characterController.center = crouchControllerCenter;
+        characterController.height = crouchControllerHeight;
+        cameraTransformObject.position = new Vector3(cameraTransformObject.position.x, crouchCamPosition, cameraTransformObject.position.z);
+        moveSpeed = crouchMoveSpeed;
+        isCrouching = true;
+    }
+
+    private void RegularMovement()
+    {
+        characterController.center = defaultControllerCenter;
+        characterController.height = defaultControllerHeight;
+        cameraTransformObject.position = new Vector3(cameraTransformObject.position.x, defaultCamPosition, cameraTransformObject.position.z);
+        moveSpeed = defaultMoveSpeed;
+        isCrouching = false;
     }
 
     public float MoveAnimBlend()

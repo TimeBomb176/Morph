@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 21300000, guid: ea9ad5b48071b3f41a45d38902939bb0, type: 3}
+  returnGameObject: {fileID: 4628734596355638036}
   isScannable: 1
 --- !u!114 &8541773271833710778
 MonoBehaviour:
@@ -260,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3e13ae0fed60f489c92a0ec0912694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  returnGameObject: {fileID: 4628734596355638036}
   isMorphable: 1
 --- !u!1 &4826323291256307577
 GameObject:
