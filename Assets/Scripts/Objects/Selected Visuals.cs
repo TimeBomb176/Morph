@@ -59,6 +59,7 @@ public class SelectedVisuals : MonoBehaviour
         }
 
         ScanNMorph.Instance.OnSelectedObjectVisualChanged += ScanNMorph_OnSelectedObjectVisualChanged;
+
     }
 
 

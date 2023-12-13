@@ -33,8 +33,6 @@ public class ScanNMorph : MonoBehaviour
 
     [SerializeField] private UpdateScannedObjectUI updateScannedOpjectUI;
     private GetObjectData getObjectData;
-
-    private ObjectScannable scannableObject;
     
 
     private void Awake()
@@ -51,6 +49,7 @@ public class ScanNMorph : MonoBehaviour
     private void Update()
     {
         SetSelectableObjectVisual();
+
     }
 
        /* ---------------------------------
@@ -59,11 +58,11 @@ public class ScanNMorph : MonoBehaviour
 
     public void SetScannedObject()
     {
-        scannableObject = getObjectData.GetScannableObject();
+        ObjectScannable scannableObject = getObjectData.GetScannableObject();
 
         if (scannableObject != null)
         {
-            if (scannedObject != scannableObject.gameObject) // If scanned object differ from currently scanned object then set as new object
+            if (scannedObject != scannableObject) // If scanned object differ from currently scanned object then set as new object
             {
                 scannedObject = scannableObject.ScanObjectShape();
 
@@ -73,6 +72,8 @@ public class ScanNMorph : MonoBehaviour
                 });
             }
         }
+
+        Debug.Log(scannedObject);
     }
 
     public void MorphObjectIntoScannedObject()
@@ -83,7 +84,7 @@ public class ScanNMorph : MonoBehaviour
         {
             if (morphableObject.GetTransform() != null)
             {
-                if (scannableObject != null)
+                if (scannedObject != null)
                 {
                     GameObject go = Instantiate(scannedObject, morphableObject.GetTransform().position,
                     morphableObject.GetTransform().rotation, morphableObjectsParent.transform);
