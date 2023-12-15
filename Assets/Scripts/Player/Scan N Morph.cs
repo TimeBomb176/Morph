@@ -72,8 +72,6 @@ public class ScanNMorph : MonoBehaviour
                 });
             }
         }
-
-        Debug.Log(scannedObject);
     }
 
     public void MorphObjectIntoScannedObject()
