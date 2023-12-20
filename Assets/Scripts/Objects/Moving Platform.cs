@@ -15,7 +15,7 @@ public class MovingPlatform : MonoBehaviour
     [Tooltip("The speed at which the platform will move from point to point in the Moving Platform Path Array")]
     [SerializeField] private float platformMoveSpeed = .02f;
 
-    [Tooltip("The point in the array that the platform will start at")]
+    [Tooltip("The point in the array that the platform will start at. Starts at Zero")]
     [SerializeField] private int startingPointInPathArray = 0;
 
     [Tooltip("The path of point the platform will move to")]
@@ -32,7 +32,12 @@ public class MovingPlatform : MonoBehaviour
 
         if (movingPlatformPathArray != null && movingPlatformPathArray.Length >= 1)
         {
-            movingPlatformObject.position = movingPlatformPathArray[0].position;
+            movingPlatformObject.position = movingPlatformPathArray[startingPointInPathArray].position;
+
+            for (int i = 0; i < movingPlatformPathArray.Length; i++)
+            {
+                movingPlatformPathArray[i].gameObject.SetActive(false);
+            }
         }
     }
 

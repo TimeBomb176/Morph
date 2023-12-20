@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Button : MonoBehaviour, IInteractable
+public class ActivateSwitch : MonoBehaviour, IInteractable
 {
     [Tooltip("If true will only activate closest object, else will activate all objects with IButtonActivatable")]
     [SerializeField] private bool activateClosestObject = true;
+
+    [Tooltip("Returns animation to starting point. Needs to have two animation clips(starting and ending). " +
+        "The bool parameter that swaps between both in the Animator NEEDS to be called IsActivated or it won't work properly")]
+    [SerializeField] private bool revertToStartingPosition = false;
 
     private Animator animator;
 
@@ -17,16 +21,21 @@ public class Button : MonoBehaviour, IInteractable
     private void Update()
     {
 
-
-        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("push_001"))
+        if (revertToStartingPosition)
         {
-            animator.SetBool("Pushed", false);
+            if (animator.GetCurrentAnimatorStateInfo(0).length > animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+            {
+                animator.SetBool("IsActivated", false);
+            }
         }
+
     }
 
+    // Is called directly from the PlayerInteract Script
     public void Interact()
     {
-        animator.SetBool("Pushed", true);
+        animator.SetBool("IsActivated", true);
+
 
         float sphereCastRadius = 5f;
         Collider[] colliderArray = Physics.OverlapSphere(this.transform.position, sphereCastRadius);
