@@ -21,10 +21,9 @@ public class PlayerController : MonoBehaviour
 
 
     [SerializeField] private Transform cam;
-    [SerializeField] private Transform cameraTransformObject;
-    [SerializeField] private Transform objectGrabbableTransform;
-
-    [SerializeField] LayerMask ignoreLayer;
+    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private Transform crouchCamTransform;
+    [SerializeField] private Transform defaultCamTransform;
 
     private PlayerInteract playerInteract;
     private CharacterController characterController;
@@ -33,14 +32,12 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 defaultControllerCenter;
     private float defaultControllerHeight;
-    private float defaultCamPosition;
     private float defaultMoveSpeed;
-    private float defaultCrouchMoveSpeed;
 
     [Header("Character Controller collider Crouch size")]
+    [Tooltip("Sets the center point of the character controller so it isn't on the floor")]
     [SerializeField] private Vector3 crouchControllerCenter;
-    [SerializeField] private float crouchControllerHeight;
-    [SerializeField] private float crouchCamPosition;
+    private float crouchControllerHeight = 1;
 
     private void Awake()
     {
@@ -51,11 +48,10 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         scanNMorph = GetComponent<ScanNMorph>();
 
-        defaultCamPosition = cameraTransformObject.position.y;
         defaultControllerCenter = characterController.center;
         defaultControllerHeight = characterController.height;
+
         defaultMoveSpeed = moveSpeed;
-        defaultCrouchMoveSpeed = crouchMoveSpeed;
 
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
@@ -153,20 +149,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     private void CrouchMovement()
     {
-        characterController.center = crouchControllerCenter;
         characterController.height = crouchControllerHeight;
-        cameraTransformObject.position = new Vector3(cameraTransformObject.position.x, crouchCamPosition, cameraTransformObject.position.z);
+        characterController.center = crouchControllerCenter;
+
+        cameraTransform.position = crouchCamTransform.position;
         moveSpeed = crouchMoveSpeed;
         isCrouching = true;
     }
 
     private void RegularMovement()
     {
-        characterController.center = defaultControllerCenter;
         characterController.height = defaultControllerHeight;
-        cameraTransformObject.position = new Vector3(cameraTransformObject.position.x, defaultCamPosition, cameraTransformObject.position.z);
+        characterController.center = defaultControllerCenter;
+
+        cameraTransform.position = defaultCamTransform.position;
         moveSpeed = defaultMoveSpeed;
         isCrouching = false;
     }
