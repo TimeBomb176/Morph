@@ -41,8 +41,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
 
         playerInteract = GetComponent<PlayerInteract>();
         characterController = GetComponent<CharacterController>();
