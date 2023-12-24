@@ -41,7 +41,7 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (movingPlatformPathArray != null && movingPlatformPathArray.Length >= 1)
         {
@@ -65,7 +65,7 @@ public class MovingPlatform : MonoBehaviour
             }
 
 
-            Vector3 newPos = Vector3.MoveTowards(currentPlatformPos, currentArrayPointPos, platformMoveSpeed);
+            Vector3 newPos = Vector3.MoveTowards(currentPlatformPos, currentArrayPointPos, platformMoveSpeed * Time.deltaTime);
             movingPlatformObject.position = newPos;
         } else
         {
