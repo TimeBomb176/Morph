@@ -15,7 +15,8 @@ public class LevelLoaderManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         } else
         {
-            Destroy(this.gameObject);
+            //Destroys the other Instance
+            //Destroy(Instance.gameObject);
         }
     }
 
