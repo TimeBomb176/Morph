@@ -17,6 +17,8 @@ public class ActivateSwitch : MonoBehaviour, IInteractable
     {
         animator = GetComponent<Animator>();
     }
+    
+    
 
     private void Update()
     {
