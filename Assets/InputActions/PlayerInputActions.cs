@@ -98,6 +98,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""23d4803c-c251-43eb-ba49-96f6d6a3e2b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -320,6 +329,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Morph Object"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0da527d9-aafa-4443-ad6b-52da03409cd3"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08b2aaa5-ce16-4eb0-ad7f-822e31977b11"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -347,6 +378,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_PickUp = m_Player.FindAction("PickUp", throwIfNotFound: true);
         m_Player_ScanObject = m_Player.FindAction("Scan Object", throwIfNotFound: true);
         m_Player_MorphObject = m_Player.FindAction("Morph Object", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -416,6 +448,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_PickUp;
     private readonly InputAction m_Player_ScanObject;
     private readonly InputAction m_Player_MorphObject;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -428,6 +461,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @PickUp => m_Wrapper.m_Player_PickUp;
         public InputAction @ScanObject => m_Wrapper.m_Player_ScanObject;
         public InputAction @MorphObject => m_Wrapper.m_Player_MorphObject;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -461,6 +495,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MorphObject.started += instance.OnMorphObject;
             @MorphObject.performed += instance.OnMorphObject;
             @MorphObject.canceled += instance.OnMorphObject;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -489,6 +526,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @MorphObject.started -= instance.OnMorphObject;
             @MorphObject.performed -= instance.OnMorphObject;
             @MorphObject.canceled -= instance.OnMorphObject;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -534,5 +574,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnPickUp(InputAction.CallbackContext context);
         void OnScanObject(InputAction.CallbackContext context);
         void OnMorphObject(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

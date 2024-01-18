@@ -20,7 +20,7 @@ public class ParentPlayerToObject : MonoBehaviour
             } else NullParent();
         } else NullParent();
 
-        Debug.Log(transform.parent);
+        //Debug.Log(transform.parent);
 
     }
 
