@@ -175,6 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 418704182979926343}
+  - component: {fileID: 6515969170479142891}
   m_Layer: 0
   m_Name: Arcosolia Wall 01
   m_TagString: Untagged
@@ -202,6 +203,27 @@ Transform:
   - {fileID: 5541173964470937916}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6515969170479142891
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2340638789449935202}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.7837887, y: 4.484294, z: 0.34923404}
+  m_Center: {x: -2.3105288, y: 1.7421474, z: 0.0021502674}
 --- !u!1 &5482087986666261406
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +235,7 @@ GameObject:
   - component: {fileID: 3913596745823476915}
   - component: {fileID: 4241005798614161843}
   - component: {fileID: 2116264395078579997}
+  - component: {fileID: 5089947035952273905}
   m_Layer: 0
   m_Name: Beveled Colum.006
   m_TagString: Untagged
@@ -285,6 +308,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5089947035952273905
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5482087986666261406}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.007116891, y: 0.0071884333, z: 0.04052094}
+  m_Center: {x: -0.00007621705, y: 0.00011765421, z: 0.019974638}
 --- !u!1 &5660702076997915836
 GameObject:
   m_ObjectHideFlags: 0

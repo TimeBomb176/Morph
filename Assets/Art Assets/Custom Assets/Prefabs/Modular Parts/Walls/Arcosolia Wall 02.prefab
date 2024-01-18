@@ -175,6 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 141256405371578035}
+  - component: {fileID: -5779842140730445485}
   m_Layer: 0
   m_Name: Arcosolia Wall 02
   m_TagString: Untagged
@@ -201,6 +202,27 @@ Transform:
   - {fileID: 2936863382075447860}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &-5779842140730445485
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5318472144856337046}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.7837887, y: 4.484294, z: 0.34923404}
+  m_Center: {x: -2.3105288, y: 1.7421474, z: 0.0021502674}
 --- !u!1 &6562973146143196999
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +317,7 @@ GameObject:
   - component: {fileID: 3293854583285037617}
   - component: {fileID: 7295815854994985388}
   - component: {fileID: 7093905388531064208}
+  - component: {fileID: 8273349765177038620}
   m_Layer: 0
   m_Name: Beveled Colum.007
   m_TagString: Untagged
@@ -367,3 +390,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8273349765177038620
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8720309595627788972}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.007116891, y: 0.0071884333, z: 0.04052094}
+  m_Center: {x: -0.00007621705, y: 0.00011765421, z: 0.019974638}
