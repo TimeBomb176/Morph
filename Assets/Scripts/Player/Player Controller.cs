@@ -51,19 +51,16 @@ public class PlayerController : MonoBehaviour
 
         defaultMoveSpeed = moveSpeed;
 
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
-
-        playerInputActions.Player.Jump.performed += Jump;
-        playerInputActions.Player.Crouch.performed += Crouch;
-
-        playerInputActions.Player.ScanObject.performed += ScanObject;
-        playerInputActions.Player.MorphObject.performed += MorphObject;
-
-        playerInputActions.Player.Interact.performed += Interact;
-
     }
 
+    private void Start()
+    {
+        GameInput.Instance.OnJumpAction += Jump;
+        GameInput.Instance.OnInteractAction += Interact;
+        GameInput.Instance.OnCrouchAction += Crouch;
+        GameInput.Instance.OnScanObjectAction += ScanObject;
+        GameInput.Instance.OnMorphObjectAction += MorphObject;
+    }
 
     private void Update()
     {
@@ -76,18 +73,18 @@ public class PlayerController : MonoBehaviour
 
     //Player Interactions
 
-    private void MorphObject(InputAction.CallbackContext context)
+    private void MorphObject(object sender, EventArgs e)
     {
         scanNMorph.MorphObjectIntoScannedObject();
 
     }
 
-    private void ScanObject(InputAction.CallbackContext context)
+    private void ScanObject(object sender, EventArgs e)
     {
         scanNMorph.SetScannedObject();
     }
 
-    private void Interact(InputAction.CallbackContext context)
+    private void Interact(object sender, EventArgs e)
     {
         IInteractable interactable = playerInteract.GetInteractableObject();
 
@@ -98,8 +95,8 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement()
     {
-        Vector2 inputMoveVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
         //Vector2 inputLookVector = playerInputActions.Player.LookRotation.ReadValue<Vector2>();
+        Vector2 inputMoveVector = GameInput.Instance.GetMovementVectorNormalized();
 
         Vector3 move = new(inputMoveVector.x, 0f, inputMoveVector.y);
         float moveMagnitude = Mathf.Clamp01(move.magnitude);
@@ -127,7 +124,7 @@ public class PlayerController : MonoBehaviour
         characterController.Move(moveSpeed * Time.deltaTime * move);
     }
 
-    private void Jump(InputAction.CallbackContext context)
+    private void Jump(object sender, EventArgs e)
     {
         if (characterController.isGrounded)
         {
@@ -136,15 +133,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void Crouch(InputAction.CallbackContext context)
+    private void Crouch(object sender, EventArgs e)
     {
-        if (isCrouching == false)
+        isCrouching = !isCrouching;
+
+        if (isCrouching == true)
         {
             CrouchMovement();
-        } else if (isCrouching == true)
-        {
-            RegularMovement();
-        }
+        } else RegularMovement();
     }
 
 
