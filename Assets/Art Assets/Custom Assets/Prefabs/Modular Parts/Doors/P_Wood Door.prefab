@@ -427,6 +427,8 @@ GameObject:
   - component: {fileID: 4671874230802602602}
   - component: {fileID: 2645504148653880657}
   - component: {fileID: 7883180380057748466}
+  - component: {fileID: 8318817978503015613}
+  - component: {fileID: 7849017917301274411}
   m_Layer: 0
   m_Name: Wood Door
   m_TagString: Untagged
@@ -524,6 +526,40 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.013034148, y: 0.0006166171, z: 0.023714552}
   m_Center: {x: -0.0064708684, y: 0, z: 0.011857276}
+--- !u!95 &8318817978503015613
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7176064571176586079}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 357c9ff0db2922c4f97db831cac9cd03, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7849017917301274411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7176064571176586079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0671f99660dd3c409c6fe920f0b0e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1 &7474383139217690723
 GameObject:
   m_ObjectHideFlags: 0
