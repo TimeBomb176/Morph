@@ -331,6 +331,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Debug ",
+            "id": "d79fec60-1102-4583-92d0-23c36db23971",
+            "actions": [
+                {
+                    "name": "Disable Morph",
+                    "type": "Button",
+                    "id": "e975a08b-1645-4071-b9cb-d50e0cecac5d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5aa9cc7a-11c9-48df-a5f5-253ace41ffa3",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Disable Morph",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

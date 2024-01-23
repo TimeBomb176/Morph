@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isMoving = false;
     private bool isCrouching = false;
+    private bool canMorph = true;
 
 
     [SerializeField] private Transform cam;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController;
     private PlayerInputActions playerInputActions;
     private ScanNMorph scanNMorph;
+    private PlayerSpellsAvailable playerSpellsAvailableScript;
 
     private Vector3 defaultControllerCenter;
     private float defaultControllerHeight;
@@ -39,12 +41,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 crouchControllerCenter;
     private float crouchControllerHeight = 1;
 
+
+
     private void Awake()
     {
 
         playerInteract = GetComponent<PlayerInteract>();
         characterController = GetComponent<CharacterController>();
         scanNMorph = GetComponent<ScanNMorph>();
+        playerSpellsAvailableScript = GetComponent<PlayerSpellsAvailable>();
 
         defaultControllerCenter = characterController.center;
         defaultControllerHeight = characterController.height;
@@ -60,6 +65,21 @@ public class PlayerController : MonoBehaviour
         GameInput.Instance.OnCrouchAction += Crouch;
         GameInput.Instance.OnScanObjectAction += ScanObject;
         GameInput.Instance.OnMorphObjectAction += MorphObject;
+
+        GameInput.Instance.OnDisableMorphAction += GameInput_OnDisableMorphAction;
+
+        playerSpellsAvailableScript.OnNoSpellsAvailable += PlayerSpellsAvailable_OnNoSpellsAvaliable;
+    }
+
+    private void PlayerSpellsAvailable_OnNoSpellsAvaliable(object sender, EventArgs e)
+    {
+        canMorph = false;
+    }
+
+    private void GameInput_OnDisableMorphAction(object sender, EventArgs e)
+    {
+        //canMorph = !canMorph;
+        //Debug.Log(canMorph);
     }
 
     private void Update()
@@ -75,7 +95,10 @@ public class PlayerController : MonoBehaviour
 
     private void MorphObject(object sender, EventArgs e)
     {
-        scanNMorph.MorphObjectIntoScannedObject();
+        if (canMorph)
+        {
+            scanNMorph.MorphObjectIntoScannedObject();
+        }
 
     }
 

@@ -353,6 +353,34 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug "",
+            ""id"": ""d79fec60-1102-4583-92d0-23c36db23971"",
+            ""actions"": [
+                {
+                    ""name"": ""Disable Morph"",
+                    ""type"": ""Button"",
+                    ""id"": ""e975a08b-1645-4071-b9cb-d50e0cecac5d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5aa9cc7a-11c9-48df-a5f5-253ace41ffa3"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Disable Morph"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -379,6 +407,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_ScanObject = m_Player.FindAction("Scan Object", throwIfNotFound: true);
         m_Player_MorphObject = m_Player.FindAction("Morph Object", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        // Debug 
+        m_Debug = asset.FindActionMap("Debug ", throwIfNotFound: true);
+        m_Debug_DisableMorph = m_Debug.FindAction("Disable Morph", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -546,6 +577,52 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Debug 
+    private readonly InputActionMap m_Debug;
+    private List<IDebugActions> m_DebugActionsCallbackInterfaces = new List<IDebugActions>();
+    private readonly InputAction m_Debug_DisableMorph;
+    public struct DebugActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public DebugActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @DisableMorph => m_Wrapper.m_Debug_DisableMorph;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void AddCallbacks(IDebugActions instance)
+        {
+            if (instance == null || m_Wrapper.m_DebugActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DebugActionsCallbackInterfaces.Add(instance);
+            @DisableMorph.started += instance.OnDisableMorph;
+            @DisableMorph.performed += instance.OnDisableMorph;
+            @DisableMorph.canceled += instance.OnDisableMorph;
+        }
+
+        private void UnregisterCallbacks(IDebugActions instance)
+        {
+            @DisableMorph.started -= instance.OnDisableMorph;
+            @DisableMorph.performed -= instance.OnDisableMorph;
+            @DisableMorph.canceled -= instance.OnDisableMorph;
+        }
+
+        public void RemoveCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IDebugActions instance)
+        {
+            foreach (var item in m_Wrapper.m_DebugActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DebugActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -575,5 +652,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnScanObject(InputAction.CallbackContext context);
         void OnMorphObject(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnDisableMorph(InputAction.CallbackContext context);
     }
 }

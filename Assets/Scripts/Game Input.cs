@@ -15,6 +15,8 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnScanObjectAction;
     public event EventHandler OnMorphObjectAction;
 
+    public event EventHandler OnDisableMorphAction;
+
     private PlayerInputActions playerInputActions;
 
     private void Awake()
@@ -24,6 +26,7 @@ public class GameInput : MonoBehaviour
         playerInputActions = new PlayerInputActions();
 
         playerInputActions.Player.Enable();
+        playerInputActions.Debug.Enable();
 
         playerInputActions.Player.Pause.performed += Pause_performed;
         playerInputActions.Player.Jump.performed += Jump_performed;
@@ -31,6 +34,13 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Crouch.performed += Crouch_performed;
         playerInputActions.Player.ScanObject.performed += ScanObject_performed;
         playerInputActions.Player.MorphObject.performed += MorphObject_performed;
+
+        playerInputActions.Debug.DisableMorph.performed += DisableMorph_performed;
+    }
+
+    private void DisableMorph_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnDisableMorphAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void MorphObject_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

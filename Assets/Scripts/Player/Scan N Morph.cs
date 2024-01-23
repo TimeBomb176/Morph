@@ -33,7 +33,8 @@ public class ScanNMorph : MonoBehaviour
 
     [SerializeField] private UpdateScannedObjectUI updateScannedOpjectUI;
     private GetObjectData getObjectData;
-    
+
+    public event EventHandler OnMorphObject;
 
     private void Awake()
     {
@@ -89,6 +90,8 @@ public class ScanNMorph : MonoBehaviour
 
                     go.name = scannedObject.name.Replace("(clone)", "").Trim();
                     scannedObject = go;
+
+                    OnMorphObject?.Invoke(this, EventArgs.Empty);
 
                     Destroy(morphableObject.gameObject);
                 }
