@@ -207,8 +207,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1999069422370387837}
-  - component: {fileID: 8719248734032304207}
   - component: {fileID: 394655442615977819}
+  - component: {fileID: 8719248734032304207}
+  - component: {fileID: 478699144128546086}
   m_Layer: 0
   m_Name: Torch
   m_TagString: Untagged
@@ -232,22 +233,9 @@ Transform:
   - {fileID: 1834885210441535148}
   - {fileID: 5444093868793672250}
   - {fileID: 9026542683760151580}
+  - {fileID: 219852844774372001}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8719248734032304207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6993641350320403699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab3e13ae0fed60f489c92a0ec0912694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  returnGameObject: {fileID: 0}
-  isMorphable: 1
 --- !u!65 &394655442615977819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -267,8 +255,37 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.28302956, y: 0.7839087, z: 0.31217146}
-  m_Center: {x: 0.0053625107, y: 0.10804564, z: 0.13630223}
+  m_Size: {x: 0.28302956, y: 0.6660346, z: 0.33809566}
+  m_Center: {x: 0.0053625107, y: 0.075681865, z: 0.14926434}
+--- !u!114 &8719248734032304207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993641350320403699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3e13ae0fed60f489c92a0ec0912694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  returnGameObject: {fileID: 0}
+  isMorphable: 1
+--- !u!114 &478699144128546086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993641350320403699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858b62d08dd974644b21f8d4b1e5125a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectSprite: {fileID: 0}
+  returnGameObject: {fileID: 0}
+  isScannable: 1
 --- !u!1 &7592670588050891051
 GameObject:
   m_ObjectHideFlags: 0
@@ -5097,7 +5114,7 @@ ParticleSystemRenderer:
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
   m_VertexStreams: 0001030409
-  m_Mesh: {fileID: 289301614986012343, guid: a353dc8096ac3f049a82fddbbf7ddf8c, type: 3}
+  m_Mesh: {fileID: -5495902117074765545, guid: e5fe447d9c90f814f84e5d2be04dadd8, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
@@ -5106,3 +5123,70 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &7853889573785908668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 219852844774372001}
+  - component: {fileID: 768187864498791096}
+  - component: {fileID: 4775690074016124652}
+  m_Layer: 0
+  m_Name: Fire Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &219852844774372001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7853889573785908668}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.736, z: 0.298}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1999069422370387837}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &768187864498791096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7853889573785908668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dde204c071494b4797e6c26e5dfbb16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereRadius: 0.27
+--- !u!135 &4775690074016124652
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7853889573785908668}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.27
+  m_Center: {x: 0, y: 0, z: 0}

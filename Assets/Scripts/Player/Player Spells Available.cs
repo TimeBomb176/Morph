@@ -30,10 +30,8 @@ public class PlayerSpellsAvailable : MonoBehaviour
 
         if (spellsAvailable <= 0)
         {
-            Debug.Log("No Spells Left");
             OnNoSpellsAvailable?.Invoke(this, EventArgs.Empty);
         }
-        Debug.Log(spellsAvailable);
     }
 
     public int GetSpellsAvailable()
