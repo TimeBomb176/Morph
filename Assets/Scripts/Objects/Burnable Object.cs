@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BurnableObject : MonoBehaviour, IBurnable
 {
+
+    public event EventHandler OnObjectBurned;
+
     public void BurnObject()
     {
-        Debug.Log(this.gameObject.name + " Burned");
+        OnObjectBurned?.Invoke(this, EventArgs.Empty);
     }
 }

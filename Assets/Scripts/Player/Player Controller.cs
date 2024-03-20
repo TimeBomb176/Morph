@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
         defaultMoveSpeed = moveSpeed;
 
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     private void Start()

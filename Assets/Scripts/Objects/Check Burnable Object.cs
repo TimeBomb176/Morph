@@ -21,7 +21,6 @@ public class CheckBurnableObject : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         CheckForIBurnableObjects();
-        //Debug.Log(other.gameObject.name);
     }
 
 
